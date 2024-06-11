@@ -27,7 +27,7 @@ create table persona (
     direccion varchar(50) not null,
     telefono varchar(9),
     fecha_nacimiento DATE not null,
-    sexo enum('H',"M") not null,
+    sexo enum('H','M') not null,
     tipo enum("profesor","alumno") not null
 );
 
@@ -38,5 +38,15 @@ create table profesor(
     foreign key(id_departamento) references departamento(id)
 );
 
+create table grado(
+	id int auto_increment primary key,
+    nombre varchar(100)
+);
+
+create table curso_escolar(
+	id int auto_increment primary key,
+    anyo_inicio year(4),
+    anyo_fin year(4)
+);
 
 -- Desarrollado por Daniela Forero / ID.1.142.714.225 :D
