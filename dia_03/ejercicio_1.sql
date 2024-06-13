@@ -944,24 +944,64 @@ INSERT INTO pago VALUES (38,'PayPal','ak-std-000026','2006-05-26',1171);
 -- ######################## CONSULTAS ########################
 
 -- Codigo de la oficina + ciudad
-SELECT codigo_oficina, ciudad from oficina;
+SELECT codigo_oficina, ciudad
+from oficina;
 
 -- Ciudad + telefono de oficinas en españa
-SELECT ciudad, telefono, pais from oficina where pais="España";
+SELECT ciudad, telefono, pais
+from oficina
+where pais="España";
 
 -- Nombre + Apellidos + email de empleados con jefe=7
-SELECT nombre, apellido1, apellido2, email, codigo_jefe from empleado where codigo_jefe=7;
+SELECT nombre, apellido1, apellido2, email, codigo_jefe
+from empleado
+where codigo_jefe=7;
 
--- Puesto nombre + Apellidos + email de jefe
-SELECT puesto, nombre, apellido1, apellido2, email from empleado where puesto="Director General";
+-- Nombre + Apellidos + email de empleado jefe
+SELECT puesto, nombre, apellido1, apellido2, email
+from empleado
+where codigo_jefe is null;
 
 -- Nombre + Apellidos + puesto de no representantes de ventas
-SELECT nombre, apellido1, apellido2, puesto from empleado where puesto!="Representante Ventas";
+SELECT nombre, apellido1, apellido2, puesto
+from empleado
+where puesto!="Representante Ventas";
 
 -- Nombre clientes españoles
-Select nombre_cliente from cliente where pais="Spain";
+SELECT nombre_cliente
+from cliente
+where pais="Spain";
 
 -- Estados de pedidos
-Select distinct estado from pedido;
+SELECT distinct estado
+from pedido;
+
+-- Código cliente que realizaron algún pago en 2008
+-- Con YEAR()
+SELECT distinct codigo_cliente
+from pedido
+where year(fecha_pedido) like "2008";
+
+-- Con DATE_FORMAT()
+SELECT distinct codigo_cliente
+from pedido
+where date_format(fecha_pedido,"%Y")="2008";
+
+-- Sin YEAR() y sin DATE_FORMAT()
+SELECT distinct codigo_cliente
+from pedido
+where extract(year from fecha_pedido)="2008";
+
+-- Código pedido, código de cliente, fecha esperada y fecha de entrega de pedidos que no han sido entregados a tiempo.
+Select codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
+from pedido
+where date_format(fecha_esperada,"%M %d %Y")<date_format(fecha_entrega,"%M %d %Y");
+
+-- Código de pedido, código de cliente, fecha esperada y fecha de entrega de pedidos cuya fecha de entrega ha sido al menos dos días antes de la fecha esperada.
+-- ADDDATE.
+SELECT codigo_pedido, codigo_cliente, fecha_esperada, fecha_entrega
+from pedido
+where adddate(fecha_esperada, interval -2 day)>=fecha_entrega;
+-- DATEDIFF.
 
 -- Desarrollado por Daniela Forero / ID.1.142.714.225
