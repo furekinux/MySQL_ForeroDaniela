@@ -1043,4 +1043,63 @@ SELECT *
 FROM cliente
 WHERE ciudad='Madrid' and codigo_empleado_rep_ventas=11 or codigo_empleado_rep_ventas=30;
 
+
+-- ####################### MULTI TABLA CONSULTAS ########################
+
+-- Nombre de cada cliente y el nombre y apellido de su representante de ventas.
+SELECT cliente.nombre_cliente as Cliente, empleado.nombre as Nombre_Rep, empleado.apellido1 as Apellido_Rep
+FROM cliente
+inner join empleado on codigo_empleado_rep_ventas = empleado.codigo_empleado;
+
+-- Nombre de los clientes que hayan realizado pagos junto con el nombre de sus representantes de ventas.
+SELECT DISTINCT cliente.nombre_cliente as Cliente, pago.id_transaccion as Realizo_Pago, empleado.nombre as Nombre_Rep
+FROM cliente
+inner join pago on cliente.codigo_cliente = pago.codigo_cliente
+inner join empleado on codigo_empleado_rep_ventas = empleado.codigo_empleado;
+
+-- Nombre de los clientes que han hecho pagos y el nombre de sus representantes
+-- junto con la ciudad de la oficina a la que pertenece el representante.
+SELECT cliente.nombre_cliente as Cliente, pago.id_transaccion as Realizo_Pago, empleado.nombre as Nombre_Rep, oficina.ciudad as Ciudad_Oficina
+FROM cliente
+inner join pago on cliente.codigo_cliente = pago.codigo_cliente
+inner join empleado on codigo_empleado_rep_ventas = empleado.codigo_empleado
+inner join oficina on oficina.codigo_oficina = empleado.codigo_oficina;
+
+-- Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
+SELECT DISTINCT oficina.codigo_postal as Direccion_Oficina
+FROM cliente
+inner join empleado on codigo_empleado_rep_ventas = empleado.codigo_empleado
+inner join oficina on oficina.codigo_oficina = empleado.codigo_oficina
+WHERE cliente.ciudad = 'Fuenlabrada';
+
+-- Devuelve el nombre de los clientes y el nombre de sus representantes junto con la ciudad
+-- de la oficina a la que pertenece el representante.
+SELECT cliente.nombre_cliente as Cliente, empleado.nombre as Nombre_Rep, oficina.ciudad as Ciudad_Oficina
+FROM cliente
+inner join empleado on codigo_empleado_rep_ventas = empleado.codigo_empleado
+inner join oficina on oficina.codigo_oficina = empleado.codigo_oficina;
+
+-- Devuelve un listado con el nombre de los empleados junto con el nombre de sus jefes.
+SELECT a.nombre as Nombre_Empleado, b.nombre as Nombre_Jefe
+FROM empleado a
+inner join empleado b on b.codigo_empleado = a.codigo_jefe;
+
+-- Devuelve un listado que muestre el nombre de cada empleados, el nombre de su jefe
+-- y el nombre del jefe de sus jefe.
+SELECT a.nombre as Empleado, b.nombre as Jefe, c.nombre as Jefe_del_Jefe
+FROM empleado a
+inner join empleado b on b.codigo_empleado = a.codigo_jefe
+inner join empleado c on c.codigo_empleado = b.codigo_jefe;
+-- Devuelve el nombre de los clientes a los que no se les ha entregado a tiempo un pedido.
+
+
+-- Devuelve un listado de las diferentes gamas de producto que ha comprado cada cliente.
+SELECT DISTINCT cliente.codigo_cliente as ID_Cliente, cliente.nombre_cliente as Cliente, gama_producto.gama as Gama
+FROM gama_producto
+inner join producto on producto.gama = gama_producto.gama
+inner join detalle_pedido on detalle_pedido.codigo_producto = producto.codigo_producto
+inner join pedido on pedido.codigo_pedido = detalle_pedido.codigo_pedido
+inner join cliente on cliente.codigo_cliente = pedido.codigo_cliente
+ORDER BY cliente.codigo_cliente;
+
 -- Desarrollado por Daniela Forero / ID.1.142.714.225
