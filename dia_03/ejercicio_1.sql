@@ -953,7 +953,8 @@ SELECT ciudad, telefono, pais from oficina where pais="España";
 SELECT nombre, apellido1, apellido2, email, codigo_jefe from empleado where codigo_jefe=7;
 
 -- Nombre + Apellidos + email de empleados con jefe=7
-SELECT puesto, nombre, apellido1, apellido2, email from empleado where puesto="Director general";
+SELECT puesto, nombre, apellido1, apellido2, email from empleado where codigo_jefe=codigo_empleado;
 
+-- Nombre + Apellidos + puesto de no representantes de ventas
 
 -- Desarrollado por Daniela Forero / ID.1.142.714.225
