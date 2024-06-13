@@ -952,9 +952,16 @@ SELECT ciudad, telefono, pais from oficina where pais="España";
 -- Nombre + Apellidos + email de empleados con jefe=7
 SELECT nombre, apellido1, apellido2, email, codigo_jefe from empleado where codigo_jefe=7;
 
--- Nombre + Apellidos + email de empleados con jefe=7
-SELECT puesto, nombre, apellido1, apellido2, email from empleado where codigo_jefe=codigo_empleado;
+-- Puesto nombre + Apellidos + email de jefe
+SELECT puesto, nombre, apellido1, apellido2, email from empleado where puesto="Director General";
 
 -- Nombre + Apellidos + puesto de no representantes de ventas
+SELECT nombre, apellido1, apellido2, puesto from empleado where puesto!="Representante Ventas";
+
+-- Nombre clientes españoles
+Select nombre_cliente from cliente where pais="Spain";
+
+-- Estados de pedidos
+Select distinct estado from pedido;
 
 -- Desarrollado por Daniela Forero / ID.1.142.714.225
