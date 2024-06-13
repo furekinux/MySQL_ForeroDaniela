@@ -1090,7 +1090,12 @@ SELECT a.nombre as Empleado, b.nombre as Jefe, c.nombre as Jefe_del_Jefe
 FROM empleado a
 inner join empleado b on b.codigo_empleado = a.codigo_jefe
 inner join empleado c on c.codigo_empleado = b.codigo_jefe;
+
 -- Devuelve el nombre de los clientes a los que no se les ha entregado a tiempo un pedido.
+SELECT cliente.nombre_cliente as Cliente, pedido.fecha_esperada as Inicio, pedido.fecha_entrega as Llegada
+FROM pedido
+INNER JOIN cliente on cliente.codigo_cliente = pedido.codigo_cliente
+WHERE date_format(fecha_esperada,"%M %d %Y")<date_format(fecha_entrega,"%M %d %Y");;
 
 
 -- Devuelve un listado de las diferentes gamas de producto que ha comprado cada cliente.
