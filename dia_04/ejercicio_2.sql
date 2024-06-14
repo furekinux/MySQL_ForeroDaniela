@@ -1122,4 +1122,13 @@ inner join pedido on pedido.codigo_pedido = detalle_pedido.codigo_pedido
 inner join cliente on cliente.codigo_cliente = pedido.codigo_cliente
 ORDER BY cliente.codigo_cliente;
 
+-- Devuelve un listado con los datos de los empleados que no 
+-- tienen clientes asociados y el nombre de su jefe asociado.
+select concat(e.nombre,' ',e.apellido1,' ',e.apellido2) as 'Empleado',
+e.email,e.puesto,concat(j.nombre,' ',j.apellido1,' ',j.apellido2) as 'Jefe'
+from empleado e
+left join cliente c on e.codigo_empleado = c.codigo_empleado_rep_ventas
+inner join empleado j on e.codigo_jefe = j.codigo_empleado
+where c.codigo_empleado_rep_ventas is null;
+
 -- Desarrollado por Daniela Forero / ID.1.142.714.225
