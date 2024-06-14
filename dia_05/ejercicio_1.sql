@@ -1131,6 +1131,8 @@ left join cliente c on e.codigo_empleado = c.codigo_empleado_rep_ventas
 inner join empleado j on e.codigo_jefe = j.codigo_empleado
 where c.codigo_empleado_rep_ventas is null;
 
+-- ####################### MULTITABLAS CONSULTAS #2  ########################
+
 -- Devuelve un listado que muestre solamente los clientes que no han realizado ningún pago.
 -- NO realizo pago:
 select distinct c.codigo_cliente
@@ -1149,8 +1151,18 @@ from cliente c
 left join pedido p on p.codigo_cliente = c.codigo_cliente
 where p.codigo_cliente is null;
 
--- Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que no han realizado ningún pedido.Devuelve un listado que muestre solamente los empleados que no tienen una oficina asociada.
+-- Devuelve un listado que muestre los clientes que no han realizado ningún pago y los que no han realizado ningún pedido.
+select distinct c.codigo_cliente
+from cliente c
+left join pago p on p.codigo_cliente = c.codigo_cliente
+where p.id_transaccion is null
+union all
+select c.codigo_cliente
+from cliente c
+left join pedido p on p.codigo_cliente = c.codigo_cliente
+where p.codigo_cliente is null;
 
+-- Devuelve un listado que muestre solamente los empleados que no tienen una oficina asociada.
 
 -- Pago medio en 2009
 SELECT distinct AVG(ALL pago.total) as Promedio_Pago_2009
