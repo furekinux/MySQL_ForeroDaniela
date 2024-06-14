@@ -1075,7 +1075,7 @@ inner join oficina on oficina.codigo_oficina = empleado.codigo_oficina
 where pago.codigo_cliente is null;
 
 -- Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
-SELECT DISTINCT oficina.codigo_postal as Direccion_Oficina
+SELECT DISTINCT oficina.linea_direccion1 as Direccion_Oficina
 FROM cliente
 inner join empleado on codigo_empleado_rep_ventas = empleado.codigo_empleado
 inner join oficina on oficina.codigo_oficina = empleado.codigo_oficina
