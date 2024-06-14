@@ -1095,7 +1095,7 @@ inner join empleado c on c.codigo_empleado = b.codigo_jefe;
 SELECT cliente.nombre_cliente as Cliente, pedido.fecha_esperada as Inicio, pedido.fecha_entrega as Llegada
 FROM pedido
 INNER JOIN cliente on cliente.codigo_cliente = pedido.codigo_cliente
-WHERE date_format(fecha_esperada,"%M %d %Y")<date_format(fecha_entrega,"%M %d %Y");;
+WHERE date_format(fecha_esperada,"%M %d %Y")<date_format(fecha_entrega,"%M %d %Y");
 
 
 -- Devuelve un listado de las diferentes gamas de producto que ha comprado cada cliente.
