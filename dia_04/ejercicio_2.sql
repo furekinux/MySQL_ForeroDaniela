@@ -1065,6 +1065,15 @@ inner join pago on cliente.codigo_cliente = pago.codigo_cliente
 inner join empleado on codigo_empleado_rep_ventas = empleado.codigo_empleado
 inner join oficina on oficina.codigo_oficina = empleado.codigo_oficina;
 
+-- Nombre de los clientes que NO hayan hecho pagos y el nombre de sus representantes
+-- junto con la ciudad de la oficina a la que pertenece el representante.
+SELECT cliente.nombre_cliente as Cliente, pago.id_transaccion as Realizo_Pago, empleado.nombre as Nombre_Rep, oficina.ciudad as Ciudad_Oficina
+FROM cliente
+inner join pago on cliente.codigo_cliente = pago.codigo_cliente
+inner join empleado on codigo_empleado_rep_ventas = empleado.codigo_empleado
+inner join oficina on oficina.codigo_oficina = empleado.codigo_oficina
+where pago.codigo_cliente is null;
+
 -- Lista la dirección de las oficinas que tengan clientes en Fuenlabrada.
 SELECT DISTINCT oficina.codigo_postal as Direccion_Oficina
 FROM cliente
