@@ -1163,6 +1163,14 @@ left join pedido p on p.codigo_cliente = c.codigo_cliente
 where p.codigo_cliente is null;
 
 -- Devuelve un listado que muestre solamente los empleados que no tienen una oficina asociada.
+select e.codigo_empleado, o.codigo_oficina
+from empleado e
+left join oficina o on o.codigo_oficina = e.codigo_oficina
+where e.codigo_oficina is null;
+
+-- ¿Cuántos empleados hay en la compañía?
+SELECT COUNT(*) as Cantidad_Empleados
+from empleado;
 
 -- Pago medio en 2009
 SELECT distinct AVG(ALL pago.total) as Promedio_Pago_2009
