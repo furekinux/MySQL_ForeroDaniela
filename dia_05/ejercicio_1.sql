@@ -1168,6 +1168,24 @@ from empleado e
 left join oficina o on o.codigo_oficina = e.codigo_oficina
 where e.codigo_oficina is null;
 
+-- Solamente los empleados que no tienen un cliente asociado.
+
+-- Solamente los empleados que no tienen un cliente asociado junto con los datos de la oficina donde trabajan.
+
+-- Empleados que no tienen una oficina asociada y los que no tienen un cliente asociado.
+
+-- Productos que nunca han aparecido en un pedido.
+
+-- Productos que nunca han aparecido en un pedido. El resultado debe mostrar el nombre, la descripción y la imagen del producto.
+
+-- Oficinas donde  ninguno de los empleados que hayan sido los representantes de ventas de algún cliente que haya realizado la compra de algún producto de la gama Frutales.
+
+-- Clientes que han realizado algún pedido pero no han realizado ningún pago.
+
+-- Empleados que no tienen clientes asociados y el nombre de su jefe asociado.
+
+-- ####################### CONSULTAS RESUMEN  ########################
+
 -- ¿Cuántos empleados hay en la compañía?
 SELECT COUNT(*) as Cantidad_Empleados
 from empleado;
